@@ -1,9 +1,10 @@
 import { useRef, useState } from "react";
 import "./style.css"
 
-export function Recorder() {
+export function Recorder({
+    setAudioUrls
+}) {
     const [isRecording, setIsRecording] = useState(false);
-    const [audioUrls, setAudioUrls] = useState([]);
     const mediaRecorder = useRef(null);
     const audioChunks = useRef([]);
 
@@ -40,19 +41,6 @@ export function Recorder() {
             <h1>Gravação de áudio</h1>
             {isRecording && <button onClick={stopRecording}>Parar</button>}
             {!isRecording && <button onClick={startRecording}>Gravar</button>}
-
-            {audioUrls.length > 0 &&
-                <div className="records-list">
-                    <h2>Reproduzir gravação</h2>
-                    {audioUrls.map((url, index) => (
-                        <>
-                            <audio controls src={url} />
-                            <a key={index} href={url} download={`gravacao_${index + 1}.wav`}>Baixar gravação</a>
-                        </>
-                    ))
-                    }
-                </div>
-            }
         </div>
     )
 }

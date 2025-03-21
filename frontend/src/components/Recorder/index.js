@@ -1,8 +1,9 @@
 import { useRef, useState } from "react";
+import "./style.css"
 
 export function Recorder() {
     const [isRecording, setIsRecording] = useState(false);
-    const [audioUrl, setAudioUrl] = useState("");
+    const [audioUrls, setAudioUrls] = useState([]);
     const mediaRecorder = useRef(null);
     const audioChunks = useRef([]);
 
@@ -19,7 +20,7 @@ export function Recorder() {
         mediaRecorder.current.onstop = () => {
             const audioBlob = new Blob(audioChunks.current, { type: "audio/wav" });
             const url = URL.createObjectURL(audioBlob);
-            setAudioUrl(url);
+            setAudioUrls((prev) => [...prev, url]);
             audioChunks.current = [];
         };
 
@@ -31,7 +32,7 @@ export function Recorder() {
         if (mediaRecorder.current) {
             mediaRecorder.current.stop();
             setIsRecording(false);
-          }
+        }
     }
 
     return (
@@ -40,12 +41,17 @@ export function Recorder() {
             {isRecording && <button onClick={stopRecording}>Parar</button>}
             {!isRecording && <button onClick={startRecording}>Gravar</button>}
 
-            {audioUrl &&
-                <>
+            {audioUrls.length > 0 &&
+                <div className="records-list">
                     <h2>Reproduzir gravação</h2>
-                    <audio controls src={audioUrl} />
-                    <a href={audioUrl} download={"teste.wav"}>Baixar gravação</a>
-                </>
+                    {audioUrls.map((url, index) => (
+                        <>
+                            <audio controls src={url} />
+                            <a key={index} href={url} download={`gravacao_${index + 1}.wav`}>Baixar gravação</a>
+                        </>
+                    ))
+                    }
+                </div>
             }
         </div>
     )

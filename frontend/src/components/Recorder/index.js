@@ -44,9 +44,8 @@ export function Recorder() {
                 <>
                     <h2>Reproduzir gravação</h2>
                     <audio controls src={audioUrl} />
-                    <href src={audioUrl} download={"teste.wav"}>Baixar gravação</href>
+                    <a href={audioUrl} download={"teste.wav"}>Baixar gravação</a>
                 </>
-
             }
         </div>
     )

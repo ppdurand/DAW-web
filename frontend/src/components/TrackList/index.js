@@ -4,6 +4,8 @@ import WaveSurfer from "wavesurfer.js"
 
 export function TrackList({ audioUrls }) {
     const [currentIndex, setCurrentIndex] = useState()
+    const [waveSurfers, setWaveSurfers] = useState([])
+    const [isPlaying, setIsPlaying] = useState(false)
 
     useEffect(() => {
         setCurrentIndex(audioUrls.length)
@@ -17,6 +19,8 @@ export function TrackList({ audioUrls }) {
                     height: 80
                 })
 
+                setWaveSurfers([...waveSurfers, waveSurfer])
+
                 waveSurfer.load(audio)
                 console.log(waveSurfer)
 
@@ -25,16 +29,24 @@ export function TrackList({ audioUrls }) {
             return null;
         })
     }, [audioUrls])
+
+    function handlePlayPause(index){
+        const audio = waveSurfers[index]
+        audio.playPause()
+        setIsPlaying(!isPlaying)
+    }
+    
     return (
         <div className="records-list">
             {audioUrls.length > 0 && (
                 <>
                     <h2>Reproduzir gravação</h2>
                     {audioUrls.map((url, index) => (
-                        <>
-                            <audio controls src={url} />
+                        <div>
+                            {isPlaying && <button onClick={() => handlePlayPause(index)}>Pause</button>}
+                            {!isPlaying && <button onClick={() => handlePlayPause(index)}>Play</button>}
                             <div key={index} id={`waveform-${index}`} />
-                        </>
+                        </div>
                     ))}
                 </>
             )}

@@ -20,36 +20,35 @@ export function TrackList({ audioUrls }) {
                 })
 
                 setWaveSurfers([...waveSurfers, waveSurfer])
-
                 waveSurfer.load(audio)
-                console.log(waveSurfer)
 
                 return () => waveSurfer.destroy()
             }
             return null;
         })
-    }, [audioUrls])
+    }, [audioUrls]) 
 
     function handlePlayPause(index){
         const audio = waveSurfers[index]
         audio.playPause()
         setIsPlaying(!isPlaying)
     }
-    
+
     return (
-        <div className="records-list">
-            {audioUrls.length > 0 && (
-                <>
-                    <h2 className="title">Reproduzir gravação</h2>
-                    {audioUrls.map((url, index) => (
-                        <div>
-                            {isPlaying && <button onClick={() => handlePlayPause(index)}>Pause</button>}
-                            {!isPlaying && <button onClick={() => handlePlayPause(index)}>Play</button>}
-                            <div className="track" key={index} id={`waveform-${index}`} />
-                        </div>
-                    ))}
-                </>
-            )}
-        </div>
+            <div className="records-list">
+                {audioUrls.length > 0 && (
+                    <>
+                        <h2 className="title">Reproduzir gravação</h2>
+                        {audioUrls.map((url, index) => (
+                            <div className="track">
+                                <div className="button-track">
+                                    <button onClick={() => handlePlayPause(index)}>{isPlaying ? "Pause" : "Play"}</button>
+                                </div>
+                                <div className="wave-track" key={index} id={`waveform-${index}`} />
+                            </div>
+                        ))}
+                    </>
+                )}
+            </div>
     );
 }

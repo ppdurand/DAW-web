@@ -13,8 +13,8 @@ export function TrackList({ audioUrls }) {
             if (audioUrls[currentIndex] == audio) {
                 const waveSurfer = WaveSurfer.create({
                     container: `#waveform-${currentIndex}`,
-                    waveColor: 'green',
-                    progressColor: 'darkgreen',
+                    waveColor: '#808000',
+                    progressColor: '#FFFF00',
                     barWidth: 2,
                     height: 80
                 })
@@ -40,12 +40,12 @@ export function TrackList({ audioUrls }) {
         <div className="records-list">
             {audioUrls.length > 0 && (
                 <>
-                    <h2>Reproduzir gravação</h2>
+                    <h2 className="title">Reproduzir gravação</h2>
                     {audioUrls.map((url, index) => (
                         <div>
                             {isPlaying && <button onClick={() => handlePlayPause(index)}>Pause</button>}
                             {!isPlaying && <button onClick={() => handlePlayPause(index)}>Play</button>}
-                            <div key={index} id={`waveform-${index}`} />
+                            <div className="track" key={index} id={`waveform-${index}`} />
                         </div>
                     ))}
                 </>

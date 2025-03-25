@@ -38,7 +38,7 @@ export function Recorder({
 
     return (
         <div>
-            <h1>Gravação de áudio</h1>
+            <h1 className="title">Gravação de áudio</h1>
             {isRecording && <button onClick={stopRecording}>Parar</button>}
             {!isRecording && <button onClick={startRecording}>Gravar</button>}
         </div>

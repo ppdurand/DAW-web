@@ -3,3 +3,11 @@
     flex-direction: column;
     gap: 10px
 }
+
+.track{
+    background-color: #222222;
+}
+
+.title{
+    color: #d6d6d6
+}

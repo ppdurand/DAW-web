@@ -17,6 +17,8 @@ export function TrackList({ audioUrls, waveSurfers, setWaveSurfers }) {
                     height: 80
                 })
 
+                waveSurfer.audioUrl = audio
+
                 setWaveSurfers([...waveSurfers, waveSurfer])
                 waveSurfer.load(audio)
 
@@ -24,7 +26,12 @@ export function TrackList({ audioUrls, waveSurfers, setWaveSurfers }) {
             }
             return null;
         })
-    }, [audioUrls]) 
+    }, [audioUrls, waveSurfers])
+
+    function deleteTrack(url){
+        setWaveSurfers(prevWaveSurfers => prevWaveSurfers.filter(ws => ws.audioUrl !== url));
+    }
+    console.log(waveSurfers)
 
     return (
             <div className="records-list">
@@ -33,6 +40,7 @@ export function TrackList({ audioUrls, waveSurfers, setWaveSurfers }) {
                         <h2 className="title">Reproduzir gravação</h2>
                         {audioUrls.map((url, index) => (
                             <div className="track">
+                                <button onClick={() => deleteTrack(url)}>Excluir</button>
                                 <div className="wave-track" key={index} id={`waveform-${index}`} />
                             </div>
                         ))}

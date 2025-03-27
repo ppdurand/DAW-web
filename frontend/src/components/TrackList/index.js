@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./style.css";
 import WaveSurfer from "wavesurfer.js"
 
-export function TrackList({ audioUrls, waveSurfers, setWaveSurfers }) {
+export function TrackList({ audioUrls, setAudioUrls, waveSurfers, setWaveSurfers }) {
     const [currentIndex, setCurrentIndex] = useState()
 
     useEffect(() => {
@@ -30,8 +30,8 @@ export function TrackList({ audioUrls, waveSurfers, setWaveSurfers }) {
 
     function deleteTrack(url){
         setWaveSurfers(prevWaveSurfers => prevWaveSurfers.filter(ws => ws.audioUrl !== url));
+        setAudioUrls(prevAudioUrls => prevAudioUrls.filter(a => a !== url))
     }
-    console.log(waveSurfers)
 
     return (
             <div className="records-list">

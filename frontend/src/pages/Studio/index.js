@@ -18,7 +18,7 @@ export function Studio() {
                 <Recorder setAudioUrls={setAudioUrls} />
                 <button onClick={handlePlayPause}>{isPlaying ? "Pause" : "Play"}</button>
             </div>
-            <TrackList audioUrls={audioUrls} waveSurfers={waveSurfers} setWaveSurfers={setWaveSurfers} />
+            <TrackList audioUrls={audioUrls} setAudioUrls={setAudioUrls} waveSurfers={waveSurfers} setWaveSurfers={setWaveSurfers} />
         </div>
     )
 }

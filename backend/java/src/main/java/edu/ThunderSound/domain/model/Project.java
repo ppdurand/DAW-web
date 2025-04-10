@@ -1,15 +1,20 @@
 package edu.ThunderSound.domain.model;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+
+import java.util.List;
 
 public class Project {
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
-    private Track[] tracks;
+    private List<Track> tracks;
 
     public Project(){}
 
-    public Project(long id, String name, Track[] tracks) {
-        this.id = id;
+    public Project(String name, List<Track> tracks){
         this.name = name;
         this.tracks = tracks;
     }
@@ -30,11 +35,11 @@ public class Project {
         this.name = name;
     }
 
-    public Track[] getTracks() {
+    public List<Track> getTracks() {
         return tracks;
     }
 
-    public void setTracks(Track[] tracks) {
+    public void setTracks(List<Track> tracks) {
         this.tracks = tracks;
     }
 }

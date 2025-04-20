@@ -6,6 +6,7 @@ public class Clip {
     private String end;
     private Integer volume;
     private String fileName;
+    
 
     public Clip() {
     }

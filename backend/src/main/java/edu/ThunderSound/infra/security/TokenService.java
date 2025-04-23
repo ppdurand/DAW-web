@@ -1,9 +1,7 @@
-package edu.ThunderSound.infra.repository.security;
+package edu.ThunderSound.infra.security;
 
 import java.time.Instant;
 import java.time.ZoneOffset;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -36,7 +34,16 @@ public class TokenService {
         }
     }
 
+    public String validateToken(String token){
+        try{
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+            return JWT.require(algorithm).withIssuer("ThunderSound").build().verify(token).getSubject();
+        } catch (JWTCreationException e){
+            return null;
+        }
+    }
+
     private Instant generateExpTime(){
-        return Instant.now().plusHours(1).toInstant(ZoneOffset.of("-03:00"));
+        return Instant.now().plus(1, java.time.temporal.ChronoUnit.HOURS);
     }
 }

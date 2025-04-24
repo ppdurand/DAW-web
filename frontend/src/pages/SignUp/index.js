@@ -4,8 +4,28 @@ import { Button, Card, Form, Input } from 'antd';
 import './style.css';
 
 export function SignUp({setRegisterFlag}) {
-    function saveAccount(values) {
-        console.log('Received values:', values);
+    async function saveAccount(values) {
+        try{
+            const res = await fetch('http://localhost:8080/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(values),
+            });
+
+            if (!res.ok) {
+                const error = await res.json()
+                throw new Error(error.message || 'Erro ao fazer cadastro');
+            }
+
+            const data = await res.json()
+            localStorage.setItem('token', data.token)
+            alert('Conta criada com sucesso!')
+
+        } catch (err) {
+            alert(err.message)
+        }
     }
 
     function handleRegisterFlag() {
@@ -17,6 +37,13 @@ export function SignUp({setRegisterFlag}) {
             <Card className='signUp-card'>
                 <h1 className='signUp-title'>Criar nova conta</h1>
                 <Form onFinish={saveAccount} layout='vertical'>
+                    <Form.Item
+                        label="Email"
+                        name="email"
+                        rules={[{ required: true, message: 'Informe seu email' }]}
+                    >
+                        <Input placeholder="Enter your username" />
+                    </Form.Item>
                     <Form.Item
                         label="Nome de usuário"
                         name="username"

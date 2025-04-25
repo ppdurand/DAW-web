@@ -6,7 +6,7 @@ import './style.css';
 export function SignUp({setRegisterFlag}) {
     async function saveAccount(values) {
         try{
-            const res = await fetch('http://localhost:8080/auth/register', {
+            const res = await fetch('http://localhost:8080/auth/signUp', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

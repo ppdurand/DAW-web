@@ -8,13 +8,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
-
+  
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -37,6 +35,7 @@ public class AuthController {
 
     @PostMapping("/signUp")
     public ResponseEntity signUp(@RequestBody SignUpRequest request){
+        System.out.println("entrou");
         Optional<User> userConsult = this.userRepository.findByEmail(request.email());
         if(userConsult.isPresent()) return ResponseEntity.badRequest().build();
 
@@ -49,6 +48,8 @@ public class AuthController {
         this.userRepository.save(user);
 
         String token  = this.tokenService.generateToken(user);
+        System.out.println("Toke => " + token);
+        System.out.println("Request =>" + request);
         return ResponseEntity.ok(new LoginResponse(user.getUsername(), token));
     }
 

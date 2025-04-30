@@ -15,10 +15,11 @@ export function Login({ setRegisterFlag }) {
 
             if (!res.ok) {
                 const error = await res.json()
-                throw new Error(error.message || 'Erro ao fazer login');
+                console.log(res)
+                throw new Error(error.message, "Errror" || 'Erro ao fazer login');
             }
 
-            const data = await res.json()
+            const data = await res.text()
             localStorage.setItem('token', data.token)
             alert('Login feito com sucesso!')
 

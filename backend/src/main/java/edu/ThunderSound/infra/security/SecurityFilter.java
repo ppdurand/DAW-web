@@ -27,8 +27,6 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String requestPath = request.getServletPath();
-
-        // Only attempt to validate the token for requests that are NOT login or signup
         if (!"/auth/login".equals(requestPath) && !"/auth/signUp".equals(requestPath)) {
             var token = this.recovertoken(request);
             var login = this.tokenService.validateToken(token);

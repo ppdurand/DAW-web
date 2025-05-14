@@ -2,17 +2,6 @@
     gap: 10px
 }
 
-.track{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.wave-track{
-    background-color: #222222;
-    flex-grow: 1;
-}
-
 .button-track{
     position: relative;
     flex-shrink: 0;

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./style.css";
 import WaveSurfer from "wavesurfer.js"
+import { Track } from "../Track";
 
 export function TrackList({ audioUrls, setAudioUrls, waveSurfers, setWaveSurfers }) {
     const [currentIndex, setCurrentIndex] = useState()
@@ -44,14 +45,9 @@ export function TrackList({ audioUrls, setAudioUrls, waveSurfers, setWaveSurfers
     return (
         <div className="records-list" style={{ display: "flex", overflowX: "auto" }}>
             {audioUrls.length > 0 && (
-                <>
+                <>  
                     <h2 className="title">Reproduzir gravação</h2>
-                    {audioUrls.map((url, index) => (
-                        <div className="track" key={index} style={{display: "inline-block", marginRight: "10px"}}>
-                            <button onClick={() => deleteTrack(url)}>Excluir</button>
-                            <div className="wave-track" id={`waveform-${index}`} />
-                        </div>
-                    ))}
+                    <Track audioUrls={audioUrls} deleteTrack={deleteTrack} />
                 </>
             )}
         </div>

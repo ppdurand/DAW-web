@@ -1,0 +1,11 @@
+.track{
+    display: flex !important;
+    align-items: center;
+    gap: 10px;
+    margin-right: 10px;
+}
+
+/* .wave-track{
+    background-color: #222222;
+    flex-grow: 1;
+} */

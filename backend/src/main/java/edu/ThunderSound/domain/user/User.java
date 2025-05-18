@@ -26,3 +26,13 @@ public class User {
 
     public User(){}
 }
+
+
+
+public class Main {
+    public static void main(String[] args) {
+        BookingFacade facade = new BookingFacade();
+        facade.bookFlight("São Paulo", "Rio de Janeiro", 123, "4111-xxxx-xxxx-1111", "cliente@email.com");
+    }
+}
+
